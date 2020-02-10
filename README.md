@@ -1,2 +1,3 @@
 # books-koa
-Books koa
+Demo project on Koa
+
