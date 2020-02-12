@@ -1,5 +1,16 @@
 {
   "error": {
     "emitStackTrace": false
+  },
+  "mysql": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "database": "books_koa_db",
+    "user": "root",
+    "password": "12345",
+    "charset": "utf8_unicode_ci",
+    "timezone": "Z",
+    "connectTimeout": 10000,
+    "debug": true
   }
 }
