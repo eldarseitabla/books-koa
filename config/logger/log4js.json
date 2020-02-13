@@ -1,0 +1,12 @@
+{
+  "appenders": {
+    "logstash": {
+      "type": "@log4js-node/logstashudp",
+      "host": "log.server",
+      "port": 12345
+    }
+  },
+  "categories": {
+    "default": { "appenders": ["logstash"], "level": "info" }
+  }
+}
