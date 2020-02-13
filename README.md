@@ -2,13 +2,10 @@
 Demo project on Koa
 
 ## Requirements
-
 - node: >= v12.14.0
 - docker compose
 
-
 ## Install
-
 Node modules
 ```bash
 npm i
@@ -37,8 +34,11 @@ Go
 [http://localhost:3000/api](http://localhost:3000/api)
 
 ## Checklist
-
  - [x] Start server
  - [x] Created openAPI via Swagger
+ - [x] Create DB structure
+ - [x] Docker compose
  - [x] Seeds
+ - [x] awilix
  - [ ] Controllers
+ - [ ] Filters

@@ -1,7 +1,7 @@
 'use strict';
 
 const logger = require('log4js').getLogger('[error-handler]');
-const config = require('../../config/config.json'); // TODO temporary
+const config = require('../config/config.json'); // TODO temporary
 
 /**
  * Error handler middleware.

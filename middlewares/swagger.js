@@ -4,12 +4,11 @@ const path = require('path');
 const send = require('koa-send');
 const koaSwagger = require('koa2-swagger-ui');
 
-const swaggerYml = async (ctx, next) => {
+const swaggerYml = async (ctx) => {
   if ('/swagger.yaml' === ctx.path) {
-    const dir = path.resolve(__dirname, '..', '..', 'public');
+    const dir = path.resolve(__dirname, '..', 'public');
     await send(ctx, ctx.path, { root: dir });
   }
-  await next();
 };
 
 const swaggerClient = () => {

@@ -26,14 +26,17 @@
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
+    "awilix": "^4.2.3",
+    "awilix-koa": "^4.0.0",
     "dotenv": "^8.2.0",
+    "fejl": "^2.4.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-compress": "^3.0.0",
     "koa-respond": "^2.1.0",
-    "koa-router": "^8.0.7",
     "koa-send": "^5.0.0",
     "koa2-swagger-ui": "^2.16.0",
+    "lodash": "^4.17.15",
     "log4js": "^6.1.1",
     "mysql": "^2.18.1",
     "swagger-client": "^3.10.0"

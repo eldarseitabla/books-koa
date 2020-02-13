@@ -107,7 +107,7 @@ const createImages = async (queryAsync) => {
     await createImages(queryAsync);
 
   } catch (err) {
-    console.log('!!!ERRROR', err.message, err.stack);
+    console.log('!!!!Error:', err.message, err.stack);
   } finally {
     await connection.end();
   }
