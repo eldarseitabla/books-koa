@@ -27,7 +27,7 @@ Build, (re)create MySQL in Docker and create database
 docker-compose up -d
 ```
 
-#### Run seeds
+#### Run seeds !!! Remove it before to production
 ```bash
 npm run seeds
 ```
@@ -36,3 +36,9 @@ npm run seeds
 Go
 [http://localhost:3000/api](http://localhost:3000/api)
 
+## Checklist
+
+ - [x] Start server
+ - [x] Created openAPI via Swagger
+ - [x] Seeds
+ - [ ] Controllers

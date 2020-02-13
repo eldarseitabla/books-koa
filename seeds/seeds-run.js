@@ -10,15 +10,11 @@ const config = require('../config/config.json');
 
 const connection = mysql.createConnection(config.mysql);
 
-/**
- * For truncate table
- * ```sql
- * SET FOREIGN_KEY_CHECKS = 0;
- * TRUNCATE TABLE table_name;
- * ```
- */
+
+const amountOfElements = 1e5;
 
 /**
+ * TODO !!! Remove it before to production
  * @param {Function} queryAsync
  */
 const truncate = async (queryAsync) => {
@@ -30,13 +26,12 @@ const truncate = async (queryAsync) => {
 
 /**
  * @param {Function} queryAsync
- * @param {number} quantity
  * @return {Promise<*>}
  */
-const createAuthors = async (queryAsync, quantity) => {
+const createAuthors = async (queryAsync) => {
   // Разбиваем на страницы чтобы порционно залить данныые в бд
   const pages = 10;
-  const limit = quantity / pages;
+  const limit = amountOfElements / pages;
 
   for (let i = 1; i <= pages; i++) {
     const authorNames = [];
@@ -50,13 +45,12 @@ const createAuthors = async (queryAsync, quantity) => {
 
 /**
  * @param {Function} queryAsync
- * @param {number} quantity
  * @return {Promise<*>}
  */
-const createBooks = async (queryAsync, quantity) => {
+const createBooks = async (queryAsync) => {
   // Разбиваем на страницы чтобы порционно залить данныые в бд
   const pages = 10;
-  const limit = quantity / pages;
+  const limit = amountOfElements / pages;
 
   for (let curPage = 1; curPage <= pages; curPage++) {
     const offset = (curPage - 1) * limit;
@@ -70,8 +64,32 @@ const createBooks = async (queryAsync, quantity) => {
       const createdAt = SqlString.escape(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
       booksArray.push(`(${authorId}, ${title}, ${date}, ${description}, ${createdAt}, ${createdAt})`);
     }
-    console.log('booksArray', booksArray);
     await queryAsync(`INSERT INTO books (author_id, title, date, description, created_at, updated_at) VALUES ${booksArray.join(', ')}`);
+  }
+};
+
+/**
+ * @param {Function} queryAsync
+ * @return {Promise<*>}
+ */
+const createImages = async (queryAsync) => {
+  // Разбиваем на страницы чтобы порционно залить данныые в бд
+  const pages = 10;
+  const limit = amountOfElements / pages;
+
+  for (let curPage = 1; curPage <= pages; curPage++) {
+    const offset = (curPage - 1) * limit;
+    const books = await queryAsync(`SELECT id FROM books ORDER BY id LIMIT ${limit} OFFSET ${offset}`);
+    const imagesArray = [];
+    for (let i = 0; i < books.length; i++) {
+      // Add 2 images for 1 of book
+      for (let j = 0; j < 2; j++) {
+        const bookId = books[i]['id'];
+        const image = SqlString.escape(faker.image.avatar());
+        imagesArray.push(`(${bookId}, ${image})`);
+      }
+    }
+    await queryAsync(`INSERT INTO book_images (book_id, image) VALUES ${imagesArray.join(', ')}`);
   }
 };
 
@@ -81,9 +99,12 @@ const createBooks = async (queryAsync, quantity) => {
     await connection.connect();
     const queryAsync = util.promisify(connection.query).bind(connection);
 
+    // TODO !!! Remove it before to production
     await truncate(queryAsync);
-    await createAuthors(queryAsync, 1e5);
-    await createBooks(queryAsync, 1e5);
+
+    await createAuthors(queryAsync);
+    await createBooks(queryAsync);
+    await createImages(queryAsync);
 
   } catch (err) {
     console.log('!!!ERRROR', err.message, err.stack);
