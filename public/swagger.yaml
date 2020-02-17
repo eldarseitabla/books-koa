@@ -27,13 +27,31 @@ paths:
       summary: Gets a list of books
       tags:
         - BookApi
-      response:
+      responses:
         200:
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArrayOfBooks'
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          required: false
+          description: The number of items to skip before starting to collect the result set.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+          required: false
+          description: The number of items to return.
 
   # Gets a book #
   /books/{bookId}:
@@ -100,11 +118,13 @@ components:
       description: Book schema
       type: object
       required:
+        - id
         - title
         - date
-        - author
         - description
-        - image
+        - createdAt
+        - updatedAt
+        - authorName
       properties:
         title:
           type: string

@@ -40,5 +40,8 @@ Go
  - [x] Docker compose
  - [x] Seeds
  - [x] awilix
- - [ ] Controllers
+ - [x] Handler GET: /books
+ - [ ] Middleware Validate query params: limit&offset
+ - [ ] Handler POST: /books
+ - [ ] Handler GET: /books/{bookId}
  - [ ] Filters
