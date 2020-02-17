@@ -11,6 +11,6 @@
     "charset": "utf8_unicode_ci",
     "timezone": "Z",
     "connectTimeout": 10000,
-    "debug": true
+    "debug": false
   }
 }
